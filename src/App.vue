@@ -16,37 +16,41 @@
         </div>
       </div>
     </transition>
-    <div
-      v-if="isAuthenticated"
-      class="header"
-    >
-      <button class="sign-out">
+    <div class="header">
+      <button
+        v-if="authToken"
+        @click="handleSignOut()"
+      >
         sign out
       </button>
+      <router-link
+        v-else
+        :to="{ name: 'auth' }"
+      >
+        sign in
+      </router-link>
     </div>
     <router-view />
   </div>
 </template>
 
 <script>
-import { mapMutations, mapState } from "vuex";
-import { mutations } from "./store";
+import axios from 'axios';
+import { mapActions, mapMutations, mapState } from "vuex";
+import { mutations } from './store';
 
 export default {
   name: 'App',
   computed: {
-    ...mapState({
-      isAuthenticated: (state) => Boolean(state.authToken),
-      isLoading: (state) => state.isLoading,
-    }),
-  },
-  mounted() {
-    this.setLoading(false);
+    ...mapState(['authToken', 'isLoading']),
   },
   methods:  {
-    ...mapMutations({
-      setLoading: (commit, payload) => commit(mutations.SET_IS_LOADING, payload),
-    }),
+    ...mapActions(['signOut']),
+    async handleSignOut() {
+      this.signOut();
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      this.$router.push({ name: 'auth' });
+    },
   }
 };
 </script>
@@ -124,9 +128,19 @@ $gradient-red: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
   flex-direction: row;
   justify-content: flex-end;
 
-  .sign-out {
+  button {
     @extend %unstyled-button;
     padding: 0 4px;
+  }
+
+  a {
+    padding: 0 4px;
+    text-decoration: none;
+    color: inherit;
+
+    &:hover, &:visited, :active {
+      color: inherit;
+    }
   }
 }
 

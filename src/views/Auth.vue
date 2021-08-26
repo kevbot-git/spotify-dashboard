@@ -3,31 +3,34 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { v4 as uuid} from 'uuid';
 import { defineComponent } from 'vue';
 import { mapMutations, mapState } from 'vuex';
 import { mutations } from '../store';
+import { decodeHashFragment } from '../helpers';
 
 export default defineComponent({
   computed: {
-    ...mapState(['authChallenge', 'appRedirectPath']),
+    ...mapState(['authChallenge', 'redirectUri', 'appRedirectPath']),
   },
-  mounted() {
+  async mounted() {
     let appRedirectPath = '/';
-    const { code, state } = this.$route.query;
-    if (code && (!state || state === this.authChallenge)) {
-      this.setAuthToken(code);
 
-      if (this.appRedirectPath) {
-        appRedirectPath = this.appRedirectPath;
-        this.setAppRedirectPath('');
-      }
-
-      this.$router.push(appRedirectPath);
+    const { access_token: accessToken, state: authChallenge } = decodeHashFragment(this.$route.hash);
+    if (!accessToken || authChallenge !== this.authChallenge) {
+      this.authorise();
       return;
     }
 
-    this.authorise();
+    this.setAuthToken(accessToken);
+
+    if (this.appRedirectPath) {
+      appRedirectPath = this.appRedirectPath;
+      this.setAppRedirectPath('');
+    }
+
+    this.$router.push(appRedirectPath);
   },
   methods: {
     ...mapMutations({
@@ -48,9 +51,10 @@ export default defineComponent({
       const params = new URLSearchParams({
         client_id: `${import.meta.env.VITE_SPOTIFY_CLIENT_ID}`,
         redirect_uri: redirectUri,
-        response_type: 'code',
+        response_type: 'token',
         state: challenge,
       });
+
       window.location.href = `${import.meta.env.VITE_SPOTIFY_AUTH_URL}?${params.toString()}`;
     },
   },
