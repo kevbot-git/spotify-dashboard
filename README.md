@@ -1,4 +1,4 @@
-# spotify-dashboard
+# [spotify-dashboard](http://spotify-dashboard-by-kevbot-git.s3-website-ap-southeast-2.amazonaws.com/)
 
 This a Vue 3 application that is developed and built with Vite and is deployed as a static website to AWS S3.
 
