@@ -6,6 +6,8 @@ const initialStoreState = () => ({
   authChallenge: '',
   authToken: '',
   appRedirectPath: '',
+  newReleases: [],
+  featuredPlaylists: [],
 });
 
 export const mutations = {
@@ -14,6 +16,8 @@ export const mutations = {
   SET_AUTH_CHALLENGE: 'SET_AUTH_CHALLENGE',
   SET_AUTH_TOKEN: 'SET_AUTH_TOKEN',
   SET_APP_REDIRECT_PATH: 'SET_APP_REDIRECT_PATH',
+  SET_NEW_RELEASES: 'SET_NEW_RELEASES',
+  SET_FEATURED_PLAYLISTS: 'SET_FEATURED_PLAYLISTS',
 };
 
 export const store = createStore({
@@ -36,6 +40,12 @@ export const store = createStore({
     },
     [mutations.SET_APP_REDIRECT_PATH]: (state, payload) => {
       state.appRedirectPath = payload;
+    },
+    [mutations.SET_NEW_RELEASES]: (state, payload) => {
+      state.newReleases = payload;
+    },
+    [mutations.SET_FEATURED_PLAYLISTS]: (state, payload) => {
+      state.featuredPlaylists = payload;
     },
   },
   actions: {
