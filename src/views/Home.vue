@@ -94,9 +94,7 @@ export default defineComponent({
         });
 
         this.setNewReleases(items);
-        console.log(items)
       } catch (error) {
-        console.log(error);
         if (error.response?.status === 401) {
           this.signOut();
           this.$router.push({ name: 'auth' });
@@ -127,9 +125,7 @@ export default defineComponent({
         });
 
         this.setFeaturedPlaylists(items);
-        console.log(items)
       } catch (error) {
-        console.log(error);
         if (error.response?.status === 401) {
           this.signOut();
           this.$router.push({ name: 'auth' });

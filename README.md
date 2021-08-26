@@ -31,3 +31,11 @@ VITE_SPOTIFY_CLIENT_ID=<your client id>
 4. Navigate your browser to `http://<BUCKET_NAME>.s3-website-<your aws region>.amazonaws.com/`
 
 Note: after the stack is initialised, subsequent deployments take around 5 seconds.
+
+### What I would improve with more time
+
+1. Fix the `eslint` config so that my code is more consistently formatted
+2. Add a view that communicates to the user that they need to log in first, rather than simply redirecting
+3. Use the Spotify Web Player API to preview tracks on hover
+4. Make longer track/artist names easier to read
+5. Add infinite scrolling & paging to the lists
