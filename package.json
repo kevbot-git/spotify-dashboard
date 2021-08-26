@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build --outDir build --mode production",
+    "deploy": "aws cloudformation deploy --template-file ./cloudformation-template.yml --stack-name ${STACK_NAME:-spotify-dashboard-by-kevbot-git} --no-fail-on-empty-changeset --parameter-overrides BucketName=${BUCKET_NAME:-spotify-dashboard-by-kevbot-git} && npm run build && aws s3 sync --cache-control 'max-age=604800' --exclude index.html build/ s3://${BUCKET_NAME:-spotify-dashboard-by-kevbot-git}/ && aws s3 sync --cache-control 'no-cache' build/ s3://${BUCKET_NAME:-spotify-dashboard-by-kevbot-git}/"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
