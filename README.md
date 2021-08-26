@@ -39,3 +39,5 @@ Note: after the stack is initialised, subsequent deployments take around 5 secon
 3. Use the Spotify Web Player API to preview tracks on hover
 4. Make longer track/artist names easier to read
 5. Add infinite scrolling & paging to the lists
+6. Add internationalisation and region settings so it works for non-NZ or non-English-speakers
+7. Add Spotify links to items
