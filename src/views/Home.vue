@@ -16,6 +16,7 @@
         </div>
         <div class="item__content">
           <h3 v-text="item.name" />
+          <h4 v-text="item.artists[0].name" />
         </div>
       </div>
     </div>
@@ -36,6 +37,7 @@
         </div>
         <div class="item__content">
           <h3 v-text="item.name" />
+          <h4 v-text="item.owner.display_name" />
         </div>
       </div>
     </div>
@@ -196,6 +198,16 @@ $gradient-red: linear-gradient(to top, rgba(255, 8, 68, 1) 0%, rgba(255, 177, 15
     border-radius: 12.5%;
     transition: opacity 0.5s ease-in-out;
     color: #fff;
+
+    h3, h4 {
+      width: 100%;
+      margin: 0;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      min-width: 0;
+      padding: 0 4px;
+    }
   }
 
   &__image {

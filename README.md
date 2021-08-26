@@ -29,3 +29,5 @@ VITE_SPOTIFY_CLIENT_ID=<your client id>
 2. Optionally set or pass override env variables to the following command (`STACK_NAME=my-stack`, `BUCKET_NAME=my-unique-bucket`)
 3. Run `npm run deploy`
 4. Navigate your browser to `http://<BUCKET_NAME>.s3-website-<your aws region>.amazonaws.com/`
+
+Note: after the stack is initialised, subsequent deployments take around 5 seconds.
