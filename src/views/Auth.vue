@@ -40,7 +40,7 @@ export default defineComponent({
     }),
     authorise() {
       const challenge = uuid();
-      const redirectUri = `${window.location.origin}${this.$route.path}`;
+      const redirectUri = `${window.location.origin}/`;
       const appRedirect = this.$route.params?.redirect;
 
       this.setAuthChallenge(challenge);

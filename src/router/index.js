@@ -4,6 +4,7 @@ import {
 } from 'vue-router';
 import Home from '../views/Home.vue';
 import { store, mutations } from '../store';
+import { decodeHashFragment } from '../helpers';
 
 const checkAuth = (to, next) => {
   if (!store.state.authToken && to.name !== 'auth') {
@@ -22,6 +23,17 @@ const routes = [
     name: 'home',
     path: '/',
     component: Home,
+    beforeEnter(to, from, next) {
+      const { access_token: accessToken } = decodeHashFragment(to.hash);
+      if (accessToken) {
+        next(to.fullPath.replace(/^\//g, '/auth'));
+        return;
+      }
+
+      checkAuth(to, next);
+
+      next();
+    }
   },
   {
     name: 'auth',
@@ -33,12 +45,6 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-});
-
-router.beforeEach((to, from, next) => {
-  checkAuth(to, next);
-
-  next();
 });
 
 export default router;
