@@ -142,9 +142,10 @@ $gradient-red: linear-gradient(to top, rgba(255, 8, 68, 1) 0%, rgba(255, 177, 15
 
 .list {
   overflow-x: scroll;
+  overflow-y: hidden;
   white-space: nowrap;
   padding-bottom: 8px;
-  height: 214px;
+  height: 224px;
 
   &__item {
     display: inline-block;
